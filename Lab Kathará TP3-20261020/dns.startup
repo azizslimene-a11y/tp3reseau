@@ -1,0 +1,28 @@
+ip addr add 192.168.0.11/24 dev eth0
+ip route add default 192.168.0.254 via eth0
+
+echo 'zone "bleu.org" {' >> /etc/bind/named.conf
+echo "	type master;" >> /etc/bind/named.conf
+echo '	file "/etc/bind/db.bleu";' >> /etc/bind/named.conf
+echo "};" >> /etc/bind/named.conf
+
+
+touch /etc/bind/db.bleu
+echo "bleu.org. IN SOA dns.bleu.org. root.dns.bleu.org. (" >> /etc/bind/db.bleu
+echo "	2026020202;" >> /etc/bind/db.bleu
+echo "	10800;">> /etc/bind/db.bleu
+echo "	3600;" >> /etc/bind/db.bleu
+echo "	604800;">> /etc/bind/db.bleu
+echo "	86400;" >> /etc/bind/db.bleu
+echo ")" >> /etc/bind/db.bleu
+
+echo "bleu.org. IN NS dns.bleu.org." >> /etc/bind/db.bleu
+echo "dns.bleu.org. IN A 192.168.0.11" >> /etc/bind/db.bleu
+echo "http.bleu.org. IN A 192.168.0.101" >> /etc/bind/db.bleu
+echo "r0.bleu.org. IN A 192.168.0.254" >> /etc/bind/db.bleu
+
+named-checkconf '/etc/bind/named.conf'
+systemctl start named
+systemctl status named
+
+netstat -nlt 
