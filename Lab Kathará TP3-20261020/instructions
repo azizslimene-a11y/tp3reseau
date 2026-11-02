@@ -1,0 +1,10 @@
+okay so this part you need to do manually cz it cannt be automated, alah ghaleb
+-lezmk tcopy les fichiers dbbleu w named.conf fl dns tÈotthom f /shared
+-temchi l dns2 tcoppihom ml /shared ll /etc/bind/ w tbadel esm 
+	db.bleu --> db.bleu.distant
+-baed todkhl l named.conf w tbadel fih les donnés bch ycorrespondi ll subzone distant.bleu.org
+-w baed bch taaml delegation de zone temchi ll dns, w tzid l lines hedhom:
+	bleu.distant.org. IN NS dns2.distant.bleu.org.
+	dns2.distant.bleu.org IN A  172.16.1.11
+
+

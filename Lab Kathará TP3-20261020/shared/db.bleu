@@ -1,0 +1,11 @@
+bleu.org. IN SOA dns.bleu.org. root.dns.bleu.org. (
+	2026020202;
+	10800;
+	3600;
+	604800;
+	86400;
+)
+bleu.org. IN NS dns.bleu.org.
+dns.bleu.org. IN A 192.168.0.11
+http.bleu.org. IN A 192.168.0.101
+r0.bleu.org. IN A 192.168.0.254

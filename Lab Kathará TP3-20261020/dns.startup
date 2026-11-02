@@ -6,6 +6,11 @@ echo "	type master;" >> /etc/bind/named.conf
 echo '	file "/etc/bind/db.bleu";' >> /etc/bind/named.conf
 echo "};" >> /etc/bind/named.conf
 
+echo 'zone "0.168.192.in-addr.arpa" in {' >> /etc/bind/named.conf
+echo "type master;" >> /etc/bind/named.conf
+echo 'file "/etc/bind/db.0.168.192";'>> /etc/bind/named.conf
+echo "};" >> /etc/bind/named.conf
+
 
 touch /etc/bind/db.bleu
 echo "bleu.org. IN SOA dns.bleu.org. root.dns.bleu.org. (" >> /etc/bind/db.bleu
@@ -21,8 +26,26 @@ echo "dns.bleu.org. IN A 192.168.0.11" >> /etc/bind/db.bleu
 echo "http.bleu.org. IN A 192.168.0.101" >> /etc/bind/db.bleu
 echo "r0.bleu.org. IN A 192.168.0.254" >> /etc/bind/db.bleu
 
+
+touch db.0.168.192
+echo "@ IN SOA dns.bleu.org. root.dns.bleu.fr (" >> /etc/bind/db.0.168.192
+echo "	1;serial">> /etc/bind/db.0.168.192
+echo "	10800;refresh">> /etc/bind/db.0.168.192
+echo "	3600;retry" >> /etc/bind/db.0.168.192
+echo "	604800;expire">> /etc/bind/db.0.168.192
+echo "	86400;ttl">> /etc/bind/db.0.168.192
+echo ")">> /etc/bind/db.0.168.192
+
+
+echo "@ IN NS dns.bleu.org.">> /etc/bind/db.0.168.192
+echo "254 IN PTR r0.bleu.org.">> /etc/bind/db.0.168.192
+echo "11 IN PTR dns.bleu.org." >> /etc/bind/db.0.168.192
+echo "101 IN PTR http.bleu.org." >> /etc/bind/db.0.168.192
+
+
 named-checkconf '/etc/bind/named.conf'
 systemctl start named
 systemctl status named
 
 netstat -nlt 
+

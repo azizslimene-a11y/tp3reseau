@@ -1,0 +1,11 @@
+@ IN SOA dns.bleu.org. root.dns.bleu.fr (
+	1;serial
+	10800;refresh
+	3600;retry
+	604800;expire
+	86400;ttl
+)
+@ IN NS dns.bleu.org.
+254 IN PTR r0.bleu.org.
+11 IN PTR dns.bleu.org.
+101 IN PTR http.bleu.org.
